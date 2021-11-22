@@ -5,6 +5,15 @@
  */
 package ui;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import logic.Course;
+import logic.Student;
+
 /**
  *
  * @author Lander Lluvia
@@ -16,6 +25,14 @@ public class StudentInformationui extends javax.swing.JFrame {
      */
     public StudentInformationui() {
         initComponents();
+    }
+    
+    public StudentInformationui(ArrayList<Student> students, ArrayList<Course> courses){
+        this.students = students;
+        this.courses = courses;
+        initComponents();
+        //Load the students in the JComboBox
+        comboStudents.setModel(new DefaultComboBoxModel<Student>(students.toArray(new Student[0])));
     }
 
     /**
@@ -52,11 +69,6 @@ public class StudentInformationui extends javax.swing.JFrame {
 
         tfName.setText("name");
         tfName.setEnabled(false);
-        tfName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNameActionPerformed(evt);
-            }
-        });
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Surname");
@@ -73,11 +85,7 @@ public class StudentInformationui extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Courses");
 
-        listCourses.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Course 1", "Course 2", "Course 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        listCourses.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         listCourses.setEnabled(false);
         jScrollPane1.setViewportView(listCourses);
 
@@ -101,7 +109,11 @@ public class StudentInformationui extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Students");
 
-        comboStudents.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student 1", "Student 2", "Student 3", "Student 4" }));
+        comboStudents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboStudentsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,7 +172,7 @@ public class StudentInformationui extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEdit)
                     .addComponent(btnBack))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -180,19 +192,41 @@ public class StudentInformationui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNameActionPerformed
-
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        if(checkFields()){
+            students.get(comboStudents.getSelectedIndex()).setId(tfId.getText());
+            students.get(comboStudents.getSelectedIndex()).setName(tfName.getText());
+            students.get(comboStudents.getSelectedIndex()).setSurname(tfSurname.getText());
+            tfId.setText(students.get(comboStudents.getSelectedIndex()).getId());
+            tfName.setText(students.get(comboStudents.getSelectedIndex()).getName());
+            tfSurname.setText(students.get(comboStudents.getSelectedIndex()).getSurname());
+        }
+        
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
-        Menuui menu = new Menuui();
+        Menuui menu = new Menuui(students, courses);
         menu.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void comboStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboStudentsActionPerformed
+        tfId.setEnabled(true);
+        tfName.setEnabled(true);
+        tfSurname.setEnabled(true);
+        btnEdit.setEnabled(true);
+        tfId.setText(students.get(comboStudents.getSelectedIndex()).getId());
+        tfName.setText(students.get(comboStudents.getSelectedIndex()).getName());
+        tfSurname.setText(students.get(comboStudents.getSelectedIndex()).getSurname());
+        //Load the student's courses in the JList
+        DefaultListModel listModel = new DefaultListModel();
+        ArrayList<Course> courseStudent = students.get(comboStudents.getSelectedIndex()).getCourses();
+        for(int i=0;i<courseStudent.size();i++){
+            listModel.add(i, courseStudent.get(i));
+        }
+        listCourses.setModel(listModel);
+        
+    }//GEN-LAST:event_comboStudentsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +269,7 @@ public class StudentInformationui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JComboBox<String> comboStudents;
+    private javax.swing.JComboBox<Student> comboStudents;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -243,9 +277,32 @@ public class StudentInformationui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listCourses;
+    private javax.swing.JList<Course> listCourses;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfSurname;
     // End of variables declaration//GEN-END:variables
+    
+    private ArrayList<Course> courses;
+    private ArrayList<Student> students;
+    
+    private boolean checkFields() {
+        tfId.setBorder(new JTextField().getBorder());
+        tfName.setBorder(new JTextField().getBorder());
+        tfSurname.setBorder(new JTextField().getBorder());
+        if(!tfId.getText().isEmpty() && !tfName.getText().isEmpty() && !tfSurname.getText().isEmpty()){
+            return true;
+        }
+        if(tfId.getText().isEmpty()){
+            tfId.setBorder(new LineBorder(Color.RED, 2));
+        }
+        if(tfName.getText().isEmpty()){
+            tfName.setBorder(new LineBorder(Color.RED, 2));
+        }
+        if(tfSurname.getText().isEmpty()){
+            tfSurname.setBorder(new LineBorder(Color.RED, 2));
+        }
+        return false;
+    }
+
 }

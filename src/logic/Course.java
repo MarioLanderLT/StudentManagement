@@ -5,6 +5,8 @@
  */
 package logic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lander Lluvia
@@ -13,13 +15,13 @@ public class Course {
     private int id;
     private String name;
     private String description;
-    private Student[] students;
+    private ArrayList<Student> students;
 
     public Course(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        students = new Student[100];
+        students = new ArrayList<Student>();
     }
 
     public int getId() {
@@ -34,7 +36,7 @@ public class Course {
         return description;
     }
 
-    public Student[] getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
@@ -50,13 +52,13 @@ public class Course {
         this.description = description;
     }
 
-    public void setStudents(Student[] students) {
+    public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
 
     @Override
     public String toString() {
-        return "Course{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
+        return id + " - " + name;
     }
     
     

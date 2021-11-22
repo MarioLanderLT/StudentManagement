@@ -6,9 +6,12 @@
 package ui;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import logic.Course;
+import logic.Student;
 
 /**
  *
@@ -210,8 +213,18 @@ public class Loginui extends javax.swing.JFrame {
             pfPass.setBorder(new LineBorder(Color.RED, 2));
             tfUser.setBorder(new JTextField().getBorder());
         }else{
+            
+            Course pruebaC = new Course(456, "PruebaC", "1C");
+            Course pruebaC2 = new Course(789, "PruebaC2", "2C");
+            ArrayList<Course> courses  = new ArrayList<Course>();
+            courses.add(pruebaC);
+            courses.add(pruebaC2);
+            Student pruebaS = new Student("123", "PruebaS", "1S");
+            pruebaS.setCourses(courses);
+            ArrayList<Student> students = new ArrayList<Student>();
+            students.add(pruebaS);
             this.dispose();
-            Menuui menu = new Menuui();
+            Menuui menu = new Menuui(students, courses);
             menu.setVisible(true);
         }
         

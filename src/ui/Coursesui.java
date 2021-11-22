@@ -5,7 +5,10 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import logic.Course;
+import logic.Student;
 
 /**
  *
@@ -13,13 +16,23 @@ import logic.Course;
  */
 public class Coursesui extends javax.swing.JFrame {
     
+    private ArrayList<Student> students;
+    private ArrayList<Course> courses;
+    
     /**
      * Creates new form coursesui
      */
     
-    public Coursesui() {
+    public Coursesui(){
         initComponents();
-        loadCourses();
+    }
+    
+    public Coursesui(ArrayList<Student> students, ArrayList<Course> courses) {
+        this.students = students;
+        this.courses = courses;
+        initComponents();
+        //Load the courses in the JComboBox
+        comboCourses.setModel(new DefaultComboBoxModel<Course>(courses.toArray(new Course[0])));
     }
 
     /**
@@ -42,7 +55,6 @@ public class Coursesui extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Courses", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        comboCourses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course 1", "Course 2", "Course 3", "Course 4" }));
         comboCourses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCoursesActionPerformed(evt);
@@ -123,7 +135,7 @@ public class Coursesui extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
-        Menuui menu = new Menuui();
+        Menuui menu = new Menuui(students, courses);
         menu.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -175,22 +187,8 @@ public class Coursesui extends javax.swing.JFrame {
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEditInfo;
-    private javax.swing.JComboBox<String> comboCourses;
+    private javax.swing.JComboBox<Course> comboCourses;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private void loadCourses() {
-        Course course1 = new Course(123, "Course1", "Description1");
-        Course course2 = new Course(456, "Course2", "Description2");
-        Course course3 = new Course(789, "Course3", "Description3");
-        Course course4 = new Course(012, "Course4", "Description4");
-        Course[] courses = new Course[4];
-        courses[0] = course1;
-        courses[1] = course2;
-        courses[2] = course3;
-        courses[3] = course4;
-        for (Course course : courses) {
-            //comboCourses.add(course);
-        }
-    }
 }

@@ -5,6 +5,10 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import logic.Course;
+import logic.Student;
+
 /**
  *
  * @author Lander Lluvia
@@ -18,6 +22,12 @@ public class Menuui extends javax.swing.JFrame {
         initComponents();
         
         
+    }
+
+    Menuui(ArrayList<Student> students, ArrayList<Course> courses) {
+        this.students = students;
+        this.courses = courses;
+        initComponents();
     }
 
     /**
@@ -116,24 +126,26 @@ public class Menuui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.out.println(students.get(0).toString());
+        System.out.println(courses.get(0).toString());
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoursesActionPerformed
         this.dispose();
-        Coursesui course = new Coursesui();
+        Coursesui course = new Coursesui(students, courses);
         course.setVisible(true);
     }//GEN-LAST:event_btnCoursesActionPerformed
 
     private void btnStudentInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentInfoActionPerformed
         this.dispose();
-        StudentInformationui studentinfo = new StudentInformationui();
+        StudentInformationui studentinfo = new StudentInformationui(students, courses);
         studentinfo.setVisible(true);
     }//GEN-LAST:event_btnStudentInfoActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         this.dispose();
-        AddStudentui addStudent = new AddStudentui();
+        AddStudentui addStudent = new AddStudentui(students, courses);
         addStudent.setVisible(true);
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
@@ -172,7 +184,11 @@ public class Menuui extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private ArrayList<Student> students;
+    private ArrayList<Course> courses;
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnCourses;

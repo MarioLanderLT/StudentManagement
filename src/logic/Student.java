@@ -15,13 +15,13 @@ public class Student {
     private String id;
     private String name;
     private String surname;
-    private Course[] courses;
+    private ArrayList<Course> courses;
 
     public Student(String id, String name, String surname) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        courses = new Course[12];
+        courses = new ArrayList<Course>();
     }
 
     public String getId() {
@@ -36,7 +36,7 @@ public class Student {
         return surname;
     }
 
-    public Course[] getCourses() {
+    public ArrayList<Course> getCourses() {
         return courses;
     }
 
@@ -52,13 +52,13 @@ public class Student {
         this.surname = surname;
     }
 
-    public void setCourses(Course[] courses) {
+    public void setCourses(ArrayList<Course> courses) {
         this.courses = courses;
     }
 
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", name=" + name + ", surname=" + surname;
+        return id +  ", " + surname;
     }
     
     

@@ -6,8 +6,10 @@
 package ui;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import logic.Course;
 import logic.Student;
 
 /**
@@ -20,6 +22,12 @@ public class AddStudentui extends javax.swing.JFrame {
      * Creates new form AddStudentui
      */
     public AddStudentui() {
+        initComponents();
+    }
+    
+    public AddStudentui(ArrayList<Student> students, ArrayList<Course> courses){
+        this.students = students;
+        this.courses = courses;
         initComponents();
     }
 
@@ -160,7 +168,7 @@ public class AddStudentui extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
-        Menuui menu = new Menuui();
+        Menuui menu = new Menuui(students,courses);
         menu.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -215,14 +223,19 @@ public class AddStudentui extends javax.swing.JFrame {
     private javax.swing.JTextField tfSurname;
     // End of variables declaration//GEN-END:variables
 
+    private ArrayList<Course> courses;
+    private ArrayList<Student> students;
+    
+    
     private void checkFields() {
         tfId.setBorder(new JTextField().getBorder());
         tfName.setBorder(new JTextField().getBorder());
         tfSurname.setBorder(new JTextField().getBorder());
         if(!tfId.getText().isEmpty() && !tfName.getText().isEmpty() && !tfSurname.getText().isEmpty()){
             Student student = new Student(tfId.getText(), tfName.getText(), tfSurname.getText());
+            students.add(student);
             this.dispose();
-            Menuui menu = new Menuui();
+            Menuui menu = new Menuui(students,courses);
             menu.setVisible(true);
         }
         if(tfId.getText().isEmpty()){

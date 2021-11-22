@@ -119,9 +119,9 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnEdit" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -142,9 +142,6 @@
             <Property name="text" type="java.lang.String" value="name"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNameActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -191,17 +188,20 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="listCourses">
               <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                    <LineBorder>
+                      <Color PropertyName="color" blue="99" green="99" red="99" type="rgb"/>
+                    </LineBorder>
+                  </Border>
+                </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Course 1"/>
-                    <StringItem index="1" value="Course 2"/>
-                    <StringItem index="2" value="Course 3"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Course&gt;"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -238,18 +238,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboStudents">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Student 1"/>
-                <StringItem index="1" value="Student 2"/>
-                <StringItem index="2" value="Student 3"/>
-                <StringItem index="3" value="Student 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboStudentsActionPerformed"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Student&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
